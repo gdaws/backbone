@@ -160,6 +160,7 @@
       attributes = _.extend({}, defaults, attributes);
     }
     if (options && options.collection) this.collection = options.collection;
+    if (options && options.sync) this.sync = options.sync;
     this.attributes = {};
     this._escapedAttributes = {};
     this.cid = _.uniqueId('c');
