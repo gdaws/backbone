@@ -698,5 +698,15 @@ $(document).ready(function() {
       ok(options === _options);
     }
   });
-
+  
+  test("fetch, save and destroy should use this.collection.sync in preference to Backbone.sync", function() {
+    expect(3);
+    var model = new Backbone.Model({id:1});
+    model.collection = {sync: _.bind(ok, null, true)};
+    model.fetch();
+    model.set({x:true});
+    model.save();
+    model.destroy();
+  });
+  
 });
