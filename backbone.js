@@ -294,7 +294,7 @@
         if (success) success(model, resp);
       };
       options.error = Backbone.wrapError(options.error, model, options);
-      return (this.sync || Backbone.sync).call(this, 'read', this, options);
+      return (this.sync || (this.collection && this.collection.sync) || Backbone.sync).call(this, 'read', this, options);
     },
 
     // Set a hash of model attributes, and sync the model to the server.
@@ -330,7 +330,7 @@
       };
       options.error = Backbone.wrapError(options.error, model, options);
       var method = this.isNew() ? 'create' : 'update';
-      var xhr = (this.sync || Backbone.sync).call(this, method, this, options);
+      var xhr = (this.sync || (this.collection && this.collection.sync) || Backbone.sync).call(this, method, this, options);
       if (options.wait) this.set(current, silentOptions);
       return xhr;
     },
@@ -357,7 +357,7 @@
         }
       };
       options.error = Backbone.wrapError(options.error, model, options);
-      var xhr = (this.sync || Backbone.sync).call(this, 'delete', this, options);
+      var xhr = (this.sync || (this.collection && this.collection.sync) || Backbone.sync).call(this, 'delete', this, options);
       if (!options.wait) triggerDestroy();
       return xhr;
     },
